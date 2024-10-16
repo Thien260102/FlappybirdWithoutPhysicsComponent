@@ -1,0 +1,15 @@
+Logs
+.vsconfig
+ProjectVersion.txt
+Library
+obj
+Assets/GUI Kit Casual Game
+.vs
+*.csproj
+*.sln
+Temp
+Assets/Vivox
+.collabignore
+Builds
+Assets/Firebase
+Assets/Plugins/iOS/Firebase
