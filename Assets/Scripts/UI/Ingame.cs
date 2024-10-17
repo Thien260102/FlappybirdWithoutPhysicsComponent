@@ -14,6 +14,7 @@ public class Ingame : UIBase
 
         _pauseButton.onClick.AddListener(PauseGame);
         GameManager.Instance.UpdateScore += UpdateScore;
+        GameManager.Instance.StartGame += ResetScore;
     }
 
     public override void Close()
@@ -22,7 +23,10 @@ public class Ingame : UIBase
 
         _pauseButton.onClick.RemoveListener(PauseGame);
         GameManager.Instance.UpdateScore -= UpdateScore;
+        GameManager.Instance.StartGame -= ResetScore;
     }
+
+    private void ResetScore() => UpdateScore(0);
 
     private void PauseGame()
     {

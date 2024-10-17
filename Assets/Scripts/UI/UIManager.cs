@@ -25,8 +25,6 @@ public class UIManager : MonoBehaviour
         {
             _dictionaryUIs.Add(ui.Type, ui.Base);
             ui.Base.Close();
-
-            Debug.Log($"UI {ui.Type}");
         }
     }
 

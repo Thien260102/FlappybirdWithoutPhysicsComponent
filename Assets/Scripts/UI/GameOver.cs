@@ -12,6 +12,7 @@ public class GameOver : UIBase
         base.Open();
 
         _restartButton.onClick.AddListener(RestartGame);
+        GameManager.Instance.GameOver += SetScore;
     }
 
     public override void Close()
@@ -19,6 +20,7 @@ public class GameOver : UIBase
         base.Close();
 
         _restartButton.onClick.RemoveListener(RestartGame);
+        GameManager.Instance.GameOver -= SetScore;
     }
 
     public void SetScore(int score)
