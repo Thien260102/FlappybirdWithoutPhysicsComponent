@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Bird _player;
+    [SerializeField] List<BaseGameObject> _gameObjects;
     [SerializeField] UIManager _uiManager;
 
     public static GameManager Instance { get; private set; }
@@ -14,8 +15,10 @@ public class GameManager : MonoBehaviour
     public Action PauseGame;
     public Action ContinueGame;
     public Action<int> UpdateScore;
-    public Action GameOver;
+    public Action<int> GameOver;
     public Action RestartGame;
+
+    private CollisionHandler _collisionHandler;
 
     private void Awake()
     {
@@ -33,15 +36,46 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _collisionHandler = new CollisionHandler();
+
+        _player.OnAddEvent();
         _player.Initialize();
+        foreach (var g in _gameObjects)
+        {
+            g.OnAddEvent();
+            g.Initialize();
+        }
+
         _uiManager.OpenUI(UIType.Menu);
+    }
+
+    private void Update()
+    {
+        _player.UpdateGameObject();
+        foreach (var g in _gameObjects)
+        {
+            g.UpdateGameObject();
+        }
+
+        HandleCollision();
+    }
+
+    private void HandleCollision()
+    {
+        _collisionHandler.CheckCollision(_player, _gameObjects);
+
+        for (int i = 0; i < _gameObjects.Count; i++)
+        {
+
+        }
     }
 
     public void Play()
     {
-        StartGame?.Invoke();
+        _player.Initialize();
 
         _uiManager.OpenUI(UIType.InGame);
+        StartGame?.Invoke();
     }
 
     public void Pause()
@@ -58,16 +92,25 @@ public class GameManager : MonoBehaviour
         _uiManager.OpenUI(UIType.InGame);
     }
 
-    public void BirdDeath()
+    public void BirdDeath(int score)
     {
         Pause();
 
-        GameOver?.Invoke();
         _uiManager.OpenUI(UIType.GameOver);
+        GameOver?.Invoke(score);
     }
 
     public void UpdateScoreUI(int score)
     {
         UpdateScore?.Invoke(score);
+    }
+
+    private void OnApplicationQuit()
+    {
+        _player.OnRemoveEvent();
+        foreach (var g in _gameObjects)
+        {
+            g.OnRemoveEvent();
+        }
     }
 }
