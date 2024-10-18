@@ -22,18 +22,9 @@ public class BaseGameObject : MonoBehaviour
     protected ObjectType _type;
     public ObjectType Type => _type;
 
-    private Vector2 _previousPosition;
-
-    private void Awake()
-    {
-        _previousPosition = transform.position;
-    }
-
     private void Update()
     {
-        _boxCollider.Position += ((Vector2)transform.position - _previousPosition);
-
-        _previousPosition = transform.position;
+        _boxCollider.Position = transform.position;
     }
 
     public virtual void OnAddEvent()

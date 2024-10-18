@@ -109,6 +109,7 @@ public class Bird : BaseGameObject
                 break;
 
             case ObjectType.Score:
+                baseGameObject.IsCollidable = false;
                 GetScore();
                 break;
         }
