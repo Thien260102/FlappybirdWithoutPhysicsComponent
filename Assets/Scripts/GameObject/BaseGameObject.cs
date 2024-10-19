@@ -7,7 +7,8 @@ public enum ObjectType
     Bird,
     Ground,
     Pipe,
-    Score
+    Score,
+    Trigger     // use for special case
 }
 
 [ExecuteInEditMode]

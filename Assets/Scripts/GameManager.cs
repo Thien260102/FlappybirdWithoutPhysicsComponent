@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Bird _player;
+    [SerializeField] PipeController _pipeController;
     [SerializeField] List<BaseGameObject> _gameObjects;
     [SerializeField] UIManager _uiManager;
 
@@ -57,6 +59,8 @@ public class GameManager : MonoBehaviour
             g.UpdateGameObject();
         }
 
+        _pipeController.UpdatePipesController(Time.deltaTime);
+
         HandleCollision();
     }
 
@@ -66,7 +70,8 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < _gameObjects.Count; i++)
         {
-
+            _collisionHandler.CheckCollision(_gameObjects[i], 
+                _gameObjects.Where((baseObject, index) => index != i).ToList());
         }
     }
 

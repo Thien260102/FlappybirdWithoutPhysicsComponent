@@ -15,4 +15,5 @@ public class Score : BaseGameObject
     {
         base.UpdateGameObject();
     }
+
 }

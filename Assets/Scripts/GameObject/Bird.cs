@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bird : BaseGameObject
 {
-    [SerializeField] float _strength = 1f;
+    [SerializeField] float _strength = 2.5f;
     [SerializeField] float _gravity = -9.81f;
     [SerializeField] float _rotateSpeed = 5f;
 
@@ -67,16 +67,6 @@ public class Bird : BaseGameObject
         if (_isPausing)
         {
             return;
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            GameManager.Instance.BirdDeath(_score);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GetScore();
         }
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
