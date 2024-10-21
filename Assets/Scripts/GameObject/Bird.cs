@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bird : BaseGameObject
 {
+    [SerializeField] BirdTrigger[] _flyTriggers;
+    [SerializeField] bool _isAutoPlay = true;
     [SerializeField] float _strength = 2.5f;
     [SerializeField] float _gravity = -9.81f;
     [SerializeField] float _rotateSpeed = 5f;
@@ -19,6 +21,13 @@ public class Bird : BaseGameObject
         GameManager.Instance.StartGame += StartGame;
         GameManager.Instance.PauseGame += PauseGame;
         GameManager.Instance.ContinueGame += StartGame;
+        if (_isAutoPlay)
+        {
+            foreach (var flyTrigger in _flyTriggers)
+            {
+                flyTrigger.OnBirdFly += BirdFly;
+            }
+        }
     }
 
     public override void OnRemoveEvent()
@@ -28,6 +37,14 @@ public class Bird : BaseGameObject
         GameManager.Instance.StartGame -= StartGame;
         GameManager.Instance.PauseGame -= PauseGame;
         GameManager.Instance.ContinueGame -= StartGame;
+
+        if (_isAutoPlay)
+        {
+            foreach (var flyTrigger in _flyTriggers)
+            {
+                flyTrigger.OnBirdFly -= BirdFly;
+            }
+        }
     }
 
     public override void Initialize()
@@ -60,6 +77,16 @@ public class Bird : BaseGameObject
         GameManager.Instance.UpdateScore?.Invoke(_score);
     }
 
+    private void BirdFly(Pipe pipe = null)
+    {
+        if (_isPausing)
+        {
+            return;
+        }
+
+        _direction = Vector3.up * _strength;
+    }
+
     public override void UpdateGameObject()
     {
         base.UpdateGameObject();
@@ -71,7 +98,7 @@ public class Bird : BaseGameObject
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            _direction = Vector3.up * _strength;
+            BirdFly();
         }
 
         // Apply gravity and update the position

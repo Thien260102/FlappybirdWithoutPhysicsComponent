@@ -16,12 +16,13 @@ public class CustomTrigger : BaseGameObject
     {
         base.OnCustomTrigger(baseGameObject);
 
-        switch(baseGameObject.Type)
+        Pipe pipe = baseGameObject as Pipe;
+        if (pipe == null || pipe.transform.lossyScale.y < 0)
         {
-            case ObjectType.Pipe:
-                OnPipeCollided?.Invoke(baseGameObject as Pipe);
-                break;
+            return;
         }
+
+        OnPipeCollided?.Invoke(baseGameObject as Pipe);
     }
 
 }

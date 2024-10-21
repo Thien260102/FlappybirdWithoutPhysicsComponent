@@ -67,7 +67,8 @@ public class PipeController : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             _pairPipes[i].transform.position = firstPosition;
-            firstPosition.x += _xDistance; 
+            firstPosition.x += _xDistance;
+            firstPosition.y += i % 2 == 0 ? .2f : -.2f;
             
             var score = _pairPipes[i].GetComponentInChildren<Score>();
             if (score)
@@ -77,6 +78,8 @@ public class PipeController : MonoBehaviour
         }
 
         _lastPipesPosition = _pairPipes[length - 1].transform.position;
+
+        Debug.Log(_lastPipesPosition);
     }
 
     public void UpdatePipesController(float time)
@@ -86,7 +89,7 @@ public class PipeController : MonoBehaviour
             return;
         }
 
-        _lastPipesPosition = _pairPipes[0].transform.position;
+        _lastPipesPosition.x = Mathf.NegativeInfinity;
 
         Vector3 moveDistance = _moveDirection * _pipesSpeed * time;
         foreach (var pipes in _pairPipes)
@@ -101,6 +104,7 @@ public class PipeController : MonoBehaviour
 
     private void ResetPipes(BaseGameObject pipe)
     {
+        Debug.Log(_lastPipesPosition);
         _lastPipesPosition.y = Mathf.Clamp(_lastPipesPosition.y + Random.Range(-_maxDiffY, _maxDiffY), _minYPos, _maxYPos);
         _lastPipesPosition.x += _xDistance;
         foreach (var pipes in _pairPipes)

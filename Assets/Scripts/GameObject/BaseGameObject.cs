@@ -8,7 +8,8 @@ public enum ObjectType
     Ground,
     Pipe,
     Score,
-    Trigger     // use for special case
+    Trigger,        // use for rearrange pipes
+    BirdTrigger,    // use for bird auto dodge pipes
 }
 
 [ExecuteInEditMode]
