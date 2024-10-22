@@ -10,8 +10,8 @@ public class Ground : BaseGameObject
         _type = ObjectType.Ground;
     }
 
-    public override void UpdateGameObject()
+    public override void UpdateGameObject(float time)
     {
-        base.UpdateGameObject();
+        base.UpdateGameObject(time);
     }
 }

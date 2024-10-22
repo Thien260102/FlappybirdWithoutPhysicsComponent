@@ -47,9 +47,9 @@ public class BirdTrigger : BaseGameObject
         _isChangedSize = false;
     }
 
-    public override void UpdateGameObject()
+    public override void UpdateGameObject(float time)
     {
-        base.UpdateGameObject();
+        base.UpdateGameObject(time);
 
         transform.eulerAngles = _originalAngle;
     }
@@ -69,7 +69,7 @@ public class BirdTrigger : BaseGameObject
         if (!_isChangedSize)
         {
             var box = BoxCollider;
-            box.Size /= _resizeBox;
+            box.Size.x /= _resizeBox;
 
             _isChangedSize = true;
         }

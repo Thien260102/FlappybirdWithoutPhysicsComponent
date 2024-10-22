@@ -13,7 +13,7 @@ public class UIData
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] List<UIData> _myUIs;
+    [SerializeField] List<UIData> _myUis;
 
     private Dictionary<UIType, UIBase> _dictionaryUIs;
 
@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     {
         _dictionaryUIs = new Dictionary<UIType, UIBase>();
 
-        foreach (var ui in _myUIs)
+        foreach (var ui in _myUis)
         {
             _dictionaryUIs.Add(ui.Type, ui.Base);
             ui.Base.Close();

@@ -44,7 +44,7 @@ public class BaseGameObject : MonoBehaviour
 
     }
 
-    public virtual void UpdateGameObject()
+    public virtual void UpdateGameObject(float time)
     {
 
     }

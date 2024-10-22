@@ -14,6 +14,29 @@ public class Bird : BaseGameObject
     private bool _isPausing;
     private int _score;
 
+    public bool IsAutoPlay
+    {
+        get => _isAutoPlay;
+        set
+        {
+            _isAutoPlay = value;
+            if (_isAutoPlay)
+            {
+                foreach (var flyTrigger in _flyTriggers)
+                {
+                    flyTrigger.OnBirdFly += BirdFly;
+                }
+            }
+            else
+            {
+                foreach (var flyTrigger in _flyTriggers)
+                {
+                    flyTrigger.OnBirdFly -= BirdFly;
+                }
+            }
+        }
+    }
+
     public override void OnAddEvent()
     {
         base.OnAddEvent();
@@ -21,13 +44,6 @@ public class Bird : BaseGameObject
         GameManager.Instance.StartGame += StartGame;
         GameManager.Instance.PauseGame += PauseGame;
         GameManager.Instance.ContinueGame += StartGame;
-        if (_isAutoPlay)
-        {
-            foreach (var flyTrigger in _flyTriggers)
-            {
-                flyTrigger.OnBirdFly += BirdFly;
-            }
-        }
     }
 
     public override void OnRemoveEvent()
@@ -37,14 +53,6 @@ public class Bird : BaseGameObject
         GameManager.Instance.StartGame -= StartGame;
         GameManager.Instance.PauseGame -= PauseGame;
         GameManager.Instance.ContinueGame -= StartGame;
-
-        if (_isAutoPlay)
-        {
-            foreach (var flyTrigger in _flyTriggers)
-            {
-                flyTrigger.OnBirdFly -= BirdFly;
-            }
-        }
     }
 
     public override void Initialize()
@@ -87,9 +95,9 @@ public class Bird : BaseGameObject
         _direction = Vector3.up * _strength;
     }
 
-    public override void UpdateGameObject()
+    public override void UpdateGameObject(float time)
     {
-        base.UpdateGameObject();
+        base.UpdateGameObject(time);
 
         if (_isPausing)
         {
@@ -102,8 +110,8 @@ public class Bird : BaseGameObject
         }
 
         // Apply gravity and update the position
-        _direction.y += _gravity * Time.deltaTime;
-        transform.position += _direction * Time.deltaTime;
+        _direction.y += _gravity * time;
+        transform.position += _direction * time;
 
         // Tilt the bird based on the direction
         Vector3 rotation = transform.eulerAngles;

@@ -11,9 +11,9 @@ public class Score : BaseGameObject
         _type = ObjectType.Score;
     }
 
-    public override void UpdateGameObject()
+    public override void UpdateGameObject(float time)
     {
-        base.UpdateGameObject();
+        base.UpdateGameObject(time);
     }
 
 }

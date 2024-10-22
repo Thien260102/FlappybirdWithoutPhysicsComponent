@@ -10,8 +10,8 @@ public class Pipe : BaseGameObject
         _type = ObjectType.Pipe;
     }
 
-    public override void UpdateGameObject()
+    public override void UpdateGameObject(float time)
     {
-        base.UpdateGameObject();
+        base.UpdateGameObject(time);
     }
 }

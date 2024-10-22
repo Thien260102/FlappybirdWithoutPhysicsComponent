@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3811990839724462434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.241, y: -0.075, z: 0}
+  m_LocalPosition: {x: 0.242, y: -0.061, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boxCollider:
     EditCollider: 1
-    Position: {x: 0.241, y: 0.147}
-    Size: {x: 0.72, y: 0.03}
+    Position: {x: 0.242, y: 0.161}
+    Size: {x: 0.81, y: 0.03}
   IsCollidable: 1
   _resizeBox: 2
 --- !u!1 &8080876070177503544
@@ -159,7 +159,7 @@ MonoBehaviour:
   - {fileID: 3742960349303727399}
   - {fileID: 7044161099583227922}
   _isAutoPlay: 1
-  _strength: 2.3
+  _strength: 2.1
   _gravity: -9.81
   _rotateSpeed: 5
 --- !u!95 &2483880619340725080
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 8233468796074950358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0146, y: -0.0644, z: 0}
+  m_LocalPosition: {x: -0.077, y: -0.0528, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boxCollider:
     EditCollider: 1
-    Position: {x: 0.0146, y: 0.1576}
-    Size: {x: 0.24, y: 0.03}
+    Position: {x: -0.077, y: 0.1692}
+    Size: {x: 0.1, y: 0.1}
   IsCollidable: 1
   _resizeBox: 1

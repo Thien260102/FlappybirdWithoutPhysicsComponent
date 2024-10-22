@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    public UIManager UIManager => _uiManager;
+
     public Action StartGame;
     public Action PauseGame;
     public Action ContinueGame;
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Action RestartGame;
 
     private CollisionHandler _collisionHandler;
+
+    private bool _isPausing;
 
     private void Awake()
     {
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _isPausing = false;
         _collisionHandler = new CollisionHandler();
 
         _player.OnAddEvent();
@@ -53,10 +58,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _player.UpdateGameObject();
+        if (_isPausing)
+        {
+            return;
+        }
+
+        _player.UpdateGameObject(Time.deltaTime);
         foreach (var g in _gameObjects)
         {
-            g.UpdateGameObject();
+            g.UpdateGameObject(Time.deltaTime);
         }
 
         _pipeController.UpdatePipesController(Time.deltaTime);
@@ -75,8 +85,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Play()
+    public void Play(bool isAutoPlay = false)
     {
+        _isPausing = false;
+        _player.Initialize();
+        _player.IsAutoPlay = isAutoPlay;
+
+        _uiManager.OpenUI(UIType.InGame);
+        StartGame?.Invoke();
+    }
+
+    public void Restart()
+    {
+        _isPausing = false;
         _player.Initialize();
 
         _uiManager.OpenUI(UIType.InGame);
@@ -86,12 +107,14 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         PauseGame?.Invoke();
+        _isPausing = true;
 
         _uiManager.OpenUI(UIType.Pause);
     }
 
     public void Continue()
     {
+        _isPausing = false;
         ContinueGame?.Invoke();
 
         _uiManager.OpenUI(UIType.InGame);
